@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
@@ -19,10 +20,11 @@ public class Tube {
     int x;
     int gapY;
     int speed = 5;
+    boolean isPointReceived = false;
     int distanceBetweenTubes;
     Random random;
 
-    public Tube (int tubeCount, int tubeIdx) {
+    public Tube(int tubeCount, int tubeIdx) {
         random = new Random();
 
         gapY = gapHeight / 2 + padding + random.nextInt(SCR_HEIGHT - 2 * (padding + gapHeight / 2));
@@ -34,21 +36,43 @@ public class Tube {
         textureDownTube = new Texture("tube/tube.png");
 
     }
+
     public void draw(Batch batch) {
         batch.draw(textureUpperTube, x, gapY + gapHeight / 2, width, height);
         batch.draw(textureDownTube, x, gapY - gapHeight / 2 - height, width, height);
 
     }
+
     public void dispose() {
         textureDownTube.dispose();
         textureUpperTube.dispose();
     }
+
     void move() {
         x -= speed;
         if (x < -width) {
+            isPointReceived = false;
             x = SCR_WIDTH + distanceBetweenTubes;
             gapY = gapHeight / 2 + padding + random.nextInt(SCR_HEIGHT - 2 * (padding + gapHeight / 2));
         }
     }
+
+    public boolean isHit(Bird bird) {
+        if (bird.y <= gapY - gapHeight / 2 && bird.x + bird.width >= x && bird.x <= x)
+            return true;
+        if (bird.y + bird.height >= gapY + gapHeight / 2 && bird.x + bird.width >= x && bird.x <= x)
+            return true;
+
+        return false;
+    }
+    public boolean needAddPoint(Bird bird) {
+        return !isPointReceived && bird.x >= x + width;
+
+    }
+    public void setPointReceived() {
+        isPointReceived = true;
+    }
 }
+
+
 

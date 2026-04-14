@@ -30,9 +30,16 @@ public class Bird {
         jump = true;
         jumpHeight = maxHeightOfJump + y;
     }
+
     public void fly() {
-        x += speed;
-        y += speed;
+        if (jump) {
+            y += speed * 4;
+            if (y >= jumpHeight) {
+                jump = false;
+            }
+        } else {
+            y -= speed;
+        }
     }
 
     public void draw(Batch batch) {
@@ -47,4 +54,12 @@ public class Bird {
             framesArray[i].dispose();
         }
     }
+    public boolean isInField() {
+        if (y + height < 0) return false; //
+        if (y > MyGdxGame.SCR_HEIGHT) return false; //
+        return true;
+    }
 }
+
+
+
