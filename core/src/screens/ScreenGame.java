@@ -1,38 +1,51 @@
-package com.mygdx.game;
+package screens;
 
+import characters.Bird;
+import characters.Tube;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.mygdx.game.MyGdxGame;
+import components.MovingBackground;
+import components.PointCounter;
 
 import static com.mygdx.game.MyGdxGame.SCR_HEIGHT;
 import static com.mygdx.game.MyGdxGame.SCR_WIDTH;
 
 public class ScreenGame implements Screen {
     MyGdxGame myGdxGame;
+    float speed = 5.0f;
     Bird bird;
     Tube[] tubes;
     int tubeCount;
     boolean isGameOver = false;
-    int gamePoints;
+    public int gamePoints;
     PointCounter pointCounter;
     MovingBackground background;
 
     final int pointCounterMarginTop = 60;
     final int pointCounterMarginRight = 400;
 
-    ScreenGame(MyGdxGame myGdxGame) {
+    public ScreenGame(MyGdxGame myGdxGame) {
         this.myGdxGame = myGdxGame;
         bird = new Bird(0, 0, 5);
         tubeCount = 3;
         pointCounter = new PointCounter(SCR_WIDTH - pointCounterMarginRight, SCR_HEIGHT - pointCounterMarginTop);        initTubes();
-        background = new MovingBackground();
+        background = new MovingBackground("game_bg.png");
+
     }
 
     @Override
     public void show() {
+        bird.x = 0;
+        bird.y = 0;
+        bird.speed = 5;
+        speed = 5.0f;
+
+        initTubes();
         gamePoints = 0;
         isGameOver = false;
+
     }
 
 
@@ -58,12 +71,16 @@ public class ScreenGame implements Screen {
 
             } else if (tube.needAddPoint(bird)) {
                 gamePoints++;
+                bird.width += 20;
+                bird.height += 20;
+                speed += 0.5f;
                 tube.setPointReceived();
                 System.out.println(gamePoints);
             }
-
-
         }
+        if (isGameOver){
+            myGdxGame.setScreen(myGdxGame.screenStart);
+        };
         ScreenUtils.clear(1, 0, 0, 1);
         myGdxGame.camera.update();
         myGdxGame.batch.setProjectionMatrix(myGdxGame.camera.combined);
@@ -87,7 +104,7 @@ public class ScreenGame implements Screen {
     @Override
     public void dispose() {
         bird.dispose();
-        background.texture.dispose();
+        background.dispose();
     }
 
     @Override

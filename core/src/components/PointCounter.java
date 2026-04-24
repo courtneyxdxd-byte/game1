@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package components;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -8,7 +8,7 @@ public class PointCounter {
     int x, y;
     BitmapFont font;
 
-    PointCounter(int x, int y) {
+    public PointCounter(int x, int y) {
         this.x = x;
         this.y = y;
 
@@ -17,7 +17,7 @@ public class PointCounter {
         font.setColor(Color.WHITE);
     }
 
-    void draw(Batch batch, int countOfPoints) {
+    public void draw(Batch batch, int countOfPoints) {
         font.draw(batch, "Count: " + countOfPoints, x, y);
     }
 

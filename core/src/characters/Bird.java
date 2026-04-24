@@ -1,13 +1,16 @@
-package com.mygdx.game;
+package characters;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.mygdx.game.MyGdxGame;
 
 public class Bird {
-    int x, y;
-    int speed;
-    int width = 200;
-    int height = 200;
+    public int x;
+    public int y;
+    public int vy;
+    public int speed;
+    public int width = 200;
+    public int height = 200;
     Texture[] framesArray;
     int jumpHeight;
     final int maxHeightOfJump = 200;
@@ -26,7 +29,7 @@ public class Bird {
         };
 
     }
-    void onClick() {
+    public void onClick() {
         jump = true;
         jumpHeight = maxHeightOfJump + y;
     }

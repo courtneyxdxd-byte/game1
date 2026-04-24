@@ -1,6 +1,5 @@
-package com.mygdx.game;
+package characters;
 
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
@@ -48,7 +47,7 @@ public class Tube {
         textureUpperTube.dispose();
     }
 
-    void move() {
+    public void move() {
         x -= speed;
         if (x < -width) {
             isPointReceived = false;

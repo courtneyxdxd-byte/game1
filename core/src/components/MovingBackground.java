@@ -1,24 +1,24 @@
-package com.mygdx.game;
+package components;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.MyGdxGame;
 
 public class MovingBackground {
-    Texture texture;
+    public Texture texture;
     int texture1X, texture2X;
     int speed = 2;
 
-    MovingBackground() {
+    public MovingBackground(String pathToTexture) {
         texture1X = 0;
         texture2X = MyGdxGame.SCR_WIDTH;
-        texture = new Texture("game_bg.png");
+        texture = new Texture(pathToTexture); // Теперь используем переменную!
     }
-    void draw(Batch batch) {
+    public void draw(Batch batch) {
         batch.draw(texture, texture1X, 0, MyGdxGame.SCR_WIDTH + 2, MyGdxGame.SCR_HEIGHT);
         batch.draw(texture, texture2X, 0, MyGdxGame.SCR_WIDTH + 2, MyGdxGame.SCR_HEIGHT);
     }
-    void move() {
+    public void move() {
         texture1X -= speed;
         texture2X -= speed;
 
@@ -30,7 +30,7 @@ public class MovingBackground {
         }
     }
 
-    void dispose() {
+    public void dispose() {
         texture.dispose();
     }
 }
