@@ -13,7 +13,7 @@ public class Bird {
     public int height = 200;
     Texture[] framesArray;
     int jumpHeight;
-    final int maxHeightOfJump = 200;
+    final int maxHeightOfJump = 100;
     boolean jump;
     int frameCounter;
 
